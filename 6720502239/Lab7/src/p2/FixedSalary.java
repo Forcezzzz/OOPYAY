@@ -16,4 +16,8 @@ public class FixedSalary extends Employee{
 		return "Fixed salary employee: " + super.toString() + "\nmonthly salary: $" +
 				this.salary ;
 	}
+	public Card getCard()
+    {
+        return savingEmpAcc.getCard();
+    }
 }

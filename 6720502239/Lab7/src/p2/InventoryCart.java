@@ -34,4 +34,8 @@ public class InventoryCart {
 		}
 		return item;				//เอาสินค้าออกหมด ตัดถึงชิ้นสุดท้าย
 	}
+
+	public int getIndex() {
+		return i;
+	}
 }
