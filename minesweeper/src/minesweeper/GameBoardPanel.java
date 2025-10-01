@@ -71,7 +71,7 @@ public class GameBoardPanel extends JPanel {
 	        // สุ่มวาง mine
 	        Random rand = new Random();
 	        int minesPlaced = 0;
-	        while (minesPlaced < 10) {
+	        while (minesPlaced < ROWS) {
 	            int r = rand.nextInt(ROWS);
 	            int c = rand.nextInt(COLS);
 

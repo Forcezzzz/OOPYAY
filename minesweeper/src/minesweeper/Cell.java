@@ -8,11 +8,11 @@ public class Cell extends JButton {
 
 	   // Define named constants for JButton's colors and fonts
 	   //  to be chosen based on cell's state
-	   public static final Color BG_NOT_REVEALED = Color.GREEN;
-	   public static final Color FG_NOT_REVEALED = Color.RED;    // flag, mines
-	   public static final Color BG_REVEALED = Color.DARK_GRAY;
-	   public static final Color FG_REVEALED = Color.YELLOW; // number of mines
-	   public static final Font FONT_NUMBERS = new Font("Monospaced", Font.BOLD, 20);
+	   public static final Color BG_NOT_REVEALED = new Color(247, 143, 220);
+	   public static final Color FG_NOT_REVEALED = new Color(186, 2, 100);    // flag, mines
+	   public static final Color BG_REVEALED = new Color(255, 255, 255);
+	   public static final Color FG_REVEALED = Color.black; // number of mines
+	   public static final Font FONT_NUMBERS = new Font("Fixedsys", Font.BOLD, 20);
 
 	   // Define properties (package-visible)
 	   /** The row and column number of the cell */
@@ -93,7 +93,7 @@ public class Cell extends JButton {
 		      if (!isRevealed) {
 		         // ยังไม่เปิด
 		         if (isFlagged) {
-		            super.setText("F");  // แสดงธง
+		            super.setText("🚩");  // แสดงธง
 		         } else {
 		            super.setText("");
 		         }
@@ -102,7 +102,7 @@ public class Cell extends JButton {
 		      } else {
 		         // ถ้าเปิดแล้ว
 		         if (isMined) {
-		            super.setText("*"); // ระเบิด
+		            super.setText("💣"); // ระเบิด
 		         } else if (surroundingMines > 0) {
 		            super.setText(String.valueOf(surroundingMines));
 		         } else {
