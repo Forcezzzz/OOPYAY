@@ -35,6 +35,21 @@ public class Cell extends JButton {
 		      super.setFont(FONT_NUMBERS);
 		   }
 
+	   public void setMine(boolean mined) {
+		      this.isMined = mined;
+	   }
+	   
+	   public void reset() {
+		      isRevealed = false;
+		      isFlagged = false;
+		      isMined = false;
+		      surroundingMines = 0;
+		      setEnabled(true);
+		      setText("");
+		      setBackground(BG_NOT_REVEALED);
+		      setForeground(FG_NOT_REVEALED);
+	   }
+	   
 	   /** Reset this cell, ready for a new game */
 	   public void newGame(boolean isMined) {
 		      this.isRevealed = false;

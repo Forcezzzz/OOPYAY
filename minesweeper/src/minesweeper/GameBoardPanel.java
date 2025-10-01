@@ -1,6 +1,8 @@
 package minesweeper;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
+
 import javax.swing.*;
 import static minesweeper.MineSweeperConstants.ROWS;
 import static minesweeper.MineSweeperConstants.COLS;
@@ -16,11 +18,11 @@ public class GameBoardPanel extends JPanel {
 	   // Properties
 	   Cell[][] cells = new Cell[ROWS][COLS];
 	   int numMines = 10;
+	   
 
 	   /** Constructor */
 	   public GameBoardPanel() {
 	      super.setLayout(new GridLayout(ROWS, COLS, 2, 2));
-
 	      // Listener สำหรับทุก cell
 	      CellMouseListener listener = new CellMouseListener();
 
@@ -47,7 +49,7 @@ public class GameBoardPanel extends JPanel {
 	                int newRow = row + dr;
 	                int newCol = col + dc;
 
-	                if (newRow >= 0 && newRow < row && newCol >= 0 && newCol < col) {
+	                if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < COLS) {
 	                    Cell neighbor = cells[newRow][newCol];
 	                    if (!neighbor.isRevealed && !neighbor.isMined) {
 	                        neighbor.reveal(); // เปิด cell ข้างเคียง
@@ -59,17 +61,34 @@ public class GameBoardPanel extends JPanel {
 	   
 	   /** เริ่มเกมใหม่ */
 	   public void newGame() {
-	      MineMap mineMap = new MineMap();
-	      mineMap.newMineMap(numMines);
+	        // เคลียร์ cell เก่า
+	        for (int r = 0; r < ROWS ; r++) {
+	            for (int c = 0; c < COLS; c++) {
+	                cells[r][c].reset();
+	            }
+	        }
 
-	      for (int row = 0; row < ROWS; row++) {
-	         for (int col = 0; col < COLS; col++) {
-	            cells[row][col].newGame(mineMap.isMined[row][col]);
-	            int count = getSurroundingMines(row, col);
-	            cells[row][col].setSurroundingMines(count);
-	         }
-	      }
-	   }
+	        // สุ่มวาง mine
+	        Random rand = new Random();
+	        int minesPlaced = 0;
+	        while (minesPlaced < 10) {
+	            int r = rand.nextInt(ROWS);
+	            int c = rand.nextInt(COLS);
+
+	            if (!cells[r][c].isMined) {
+	                cells[r][c].setMine(true);
+	                minesPlaced++;
+	            }
+	        }
+
+	        // คำนวณ mine รอบๆ แต่ละ cell
+	        for (int r = 0; r < ROWS; r++) {
+	            for (int c = 0; c < COLS; c++) {
+	                int count = getSurroundingMines(r, c);
+	                cells[r][c].setSurroundingMines(count);
+	            }
+	        }
+	    }
 
 	   /** นับจำนวนระเบิดรอบ cell */
 	   private int getSurroundingMines(int srcRow, int srcCol) {
