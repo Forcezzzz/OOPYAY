@@ -144,17 +144,20 @@ public class GameBoardPanel extends JPanel {
 
 	         // คลิกซ้าย
 	         if (e.getButton() == MouseEvent.BUTTON1) {
-	            if (cell.isMined) {
-	               cell.reveal();
-	               JOptionPane.showMessageDialog(GameBoardPanel.this, "Game Over!");
-	               newGame();
-	            } else {
-	               revealCell(cell.row, cell.col);
-	               if (hasWon()) {
-	                  JOptionPane.showMessageDialog(GameBoardPanel.this, "You Win!");
-	                  newGame();
-	               }
-	            }
+	        	 if (cell.isFlagged) {
+	        	        return;
+	        	 }
+	        	 if (cell.isMined) {
+	        		 cell.reveal();
+	        		 JOptionPane.showMessageDialog(GameBoardPanel.this, "หวายแพ้แล้ว");
+	        		 newGame();
+	        	 } else {
+	        		 revealCell(cell.row, cell.col);
+	        		 if (hasWon()) {
+	        			 JOptionPane.showMessageDialog(GameBoardPanel.this, "โคตรโหด");
+	        			 newGame();
+	        		 }
+	        	 }
 	         }
 
 	         // คลิกขวา → toggle flag

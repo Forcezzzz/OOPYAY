@@ -66,7 +66,7 @@ public class Cell extends JButton {
 		   }
 	   
 	   public void reveal() {
-		      if (isRevealed) return;
+		      if (isRevealed || isFlagged) return;
 		      isRevealed = true;
 		      setEnabled(false);
 		      paint();
